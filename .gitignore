@@ -1,0 +1,11 @@
+.classpath
+.project
+.settings/
+
+bin/
+target/
+src/main/gwt-unitCache/
+src/main/webapp/synli/
+src/main/webapp/WEB-INF/classes/
+src/main/webapp/WEB-INF/deploy/
+src/main/webapp/WEB-INF/lib/
