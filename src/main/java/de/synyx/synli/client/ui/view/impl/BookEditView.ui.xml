@@ -1,0 +1,55 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	
+	<ui:style>
+	</ui:style>
+	
+	<g:HTMLPanel>
+		<h2>Book View</h2>
+		<g:Grid>
+			<g:row>
+				<g:customCell>
+					<g:Label>Titel:</g:Label>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox ui:field="title"></g:TextBox>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label>ISBN:</g:Label>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox ui:field="isbn"></g:TextBox>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label>Verlag:</g:Label>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox ui:field="publisher"></g:TextBox>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label>Autor:</g:Label>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox ui:field="author"></g:TextBox>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label>Amazon:</g:Label>
+				</g:customCell>
+				<g:customCell>
+					<g:TextBox ui:field="amazonLink"></g:TextBox>
+				</g:customCell>
+			</g:row>
+		</g:Grid>
+		<g:Button ui:field="btnSave">Speichern</g:Button>
+	</g:HTMLPanel>
+	
+</ui:UiBinder> 
