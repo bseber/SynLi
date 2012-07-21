@@ -5,6 +5,7 @@ import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
 import de.synyx.synli.server.domain.Book;
+import de.synyx.synli.shared.domain.Rating;
 
 @ProxyFor(value = Book.class)
 public interface BookProxy extends EntityProxy {
@@ -36,5 +37,8 @@ public interface BookProxy extends EntityProxy {
 	
 	String getPublisher();
 	void setPublisher(String publisher);
+	
+	Rating getRating();
+	void setRating(Rating rating);
 
 }

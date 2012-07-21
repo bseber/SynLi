@@ -3,6 +3,8 @@ package de.synyx.synli.server.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.synyx.synli.shared.domain.Rating;
+
 public class Book {
 
 	private static List<Book> STORE = new ArrayList<Book>();
@@ -10,23 +12,37 @@ public class Book {
 	private static Long LAST_ADDED_ID = 0L;
 
 	static {
-		save(new Book("Buch 1", "oreilly", "Max Mustermann"));
-		save(new Book("Buch 2", "oreilly", "Max Mustermann"));
-		save(new Book("Buch 3", "springer", "Max Mustermann"));
-		save(new Book("Buch 4", "springer", "Max Mustermann"));
-		save(new Book("Buch 5", "springer", "Max Mustermann"));
-		save(new Book("Buch 6", "oreilly", "Max Mustermann"));
-		save(new Book("Buch 7", "springer", "Max Mustermann"));
-		save(new Book("Buch 8", "springer", "Max Mustermann"));
-		save(new Book("Buch 10", "springer", "John Doe"));
-		save(new Book("Buch 11", "springer", "John Doe"));
-		save(new Book("Buch 12", "oreilly", "John Doe"));
-		save(new Book("Buch 13", "oreilly", "John Doe"));
-		save(new Book("Buch 14", "springer", "John Doe"));
+		save(new Book("Buch 1", "oreilly", "Max Mustermann", Rating.GOOD));
+		save(new Book("Buch 2", "oreilly", "Max Mustermann", Rating.GOOD));
+		save(new Book("Buch 3", "springer", "Max Mustermann", Rating.NONE));
+		save(new Book("Buch 4", "springer", "Max Mustermann", Rating.AWESOME));
+		save(new Book("Buch 5", "springer", "Max Mustermann", Rating.NONE));
+		save(new Book("Buch 6", "oreilly", "Max Mustermann", Rating.NONE));
+		save(new Book("Buch 7", "springer", "Max Mustermann", Rating.NONE));
+		save(new Book("Buch 8", "springer", "Max Mustermann", Rating.NONE));
+		save(new Book("Buch 10", "springer", "John Doe", Rating.NONE));
+		save(new Book("Buch 11", "springer", "John Doe", Rating.NONE));
+		save(new Book("Buch 12", "oreilly", "John Doe", Rating.NONE));
+		save(new Book("Buch 13", "oreilly", "John Doe", Rating.NONE));
+		save(new Book("Buch 14", "springer", "John Doe", Rating.NONE));
 	}
 	
 	public static Integer countBooks() {
 		return STORE.size();
+	}
+	
+	public static Integer countBooksByTitleInfix(String infix) {
+		
+		int count = 0;
+		infix = infix.toLowerCase();
+		
+		for (Book b : STORE) {
+			if (b.getTitle().toLowerCase().contains(infix)) {
+				count++;
+			}
+		}
+		
+		return count;
 	}
 	
 	public static Book findBook(Long id) {
@@ -36,6 +52,44 @@ public class Book {
 			}
 		}
 		return null;
+	}
+	
+	public static List<Book> listBooks(int offset, int limit) {
+		int added = 0;
+		List<Book> resultList = new ArrayList<Book>(limit);
+		for (int i = 0; i < STORE.size() && added < limit; i++) {
+			if (i >= offset) {
+				resultList.add(STORE.get(i));
+				added++;
+			}
+		}
+		return resultList;
+	}
+	
+	public static List<Book> listBooksByTitleInfix(String titleInfix, int offset, int limit) {
+		
+		titleInfix = titleInfix.toLowerCase();
+		
+		int curOffset = 0;
+		ArrayList<Book> result = new ArrayList<Book>(limit);
+		
+		for (int i = 0; i < STORE.size(); i++) {
+			
+			Book book = STORE.get(i);
+			
+			if (book.getTitle().toLowerCase().contains(titleInfix)) {
+				if (curOffset >= offset) {
+					result.add(book);
+				}
+				curOffset++;
+			}
+			
+			if (result.size() == limit) {
+				break;
+			}
+		}
+		
+		return result;
 	}
 	
 	public static Long save(Book book) {
@@ -55,18 +109,6 @@ public class Book {
 		return id;
 	}
 	
-	public static List<Book> listBooks(int offset, int limit) {
-		int added = 0;
-		List<Book> resultList = new ArrayList<Book>(limit);
-		for (int i = 0; i < STORE.size() && added < limit; i++) {
-			if (i >= offset) {
-				resultList.add(STORE.get(i));
-				added++;
-			}
-		}
-		return resultList;
-	}
-	
 	private Long id;
 	private Integer version;
 	private String title;
@@ -74,14 +116,16 @@ public class Book {
 	private String amazonLink;
 	private String publisher;
 	private String author;
+	private Rating rating;
 
 	public Book() {
 	}
 	
-	private Book(String title, String publisher, String author) {
+	private Book(String title, String publisher, String author, Rating rating) {
 		this.title = title;
 		this.publisher = publisher;
 		this.author = author;
+		this.rating = rating;
 	}
 	
 	public Long getId() {
@@ -142,6 +186,14 @@ public class Book {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+	
+	public Rating getRating() {
+		return rating;
+	}
+	
+	public void setRating(Rating rating) {
+		this.rating = rating;
 	}
 
 	@Override

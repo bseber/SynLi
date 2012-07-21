@@ -14,6 +14,8 @@ import de.synyx.synli.client.ioc.ClientFactoryImpl;
 import de.synyx.synli.client.ioc.ContentActivityMapper;
 import de.synyx.synli.client.ioc.WestActivityMapper;
 import de.synyx.synli.client.place.BookListPlace;
+import de.synyx.synli.client.presenter.IMenuPresenter;
+import de.synyx.synli.client.presenter.impl.MenuPresenterImpl;
 import de.synyx.synli.client.ui.view.impl.AppLayout;
 
 public class SynLib implements EntryPoint {
@@ -42,7 +44,7 @@ public class SynLib implements EntryPoint {
 		historyHandler.register(placeController, eventBus, defaultPlace);
 		
 		RootLayoutPanel.get().add(layout);
-		AppController appController = new AppController(layout, clientFactory);
+		IMenuPresenter menuPresenter = new MenuPresenterImpl(layout, clientFactory);
 
 		historyHandler.handleCurrentHistory();
 	}

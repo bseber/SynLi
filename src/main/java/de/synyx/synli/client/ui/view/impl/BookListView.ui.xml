@@ -11,7 +11,6 @@
 		<g:HTMLPanel>
 			<g:InlineLabel>Titel suchen:</g:InlineLabel>
 			<g:TextBox ui:field="tbBookTitleSearch"></g:TextBox>
-			<g:Button ui:field="btnSearchBook">Suchen</g:Button>
 		</g:HTMLPanel>
 		<g:HTMLPanel>
 			<c:CellTable ui:field="bookTable"></c:CellTable>

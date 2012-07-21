@@ -15,6 +15,7 @@ import de.synyx.synli.client.presenter.IBookEditPresenter;
 import de.synyx.synli.client.ui.view.IBookEditView;
 import de.synyx.synli.client.ui.view.impl.BookEditView;
 import de.synyx.synli.shared.domain.BookProxy;
+import de.synyx.synli.shared.domain.Rating;
 import de.synyx.synli.shared.service.AppRequestFactory;
 import de.synyx.synli.shared.service.BookServiceRequest;
 
@@ -66,13 +67,19 @@ public class BookEditPresenter extends AbstractActivity implements IBookEditPres
 		save();
 	}
 	
+	private BookProxy createNewBookProxy(BookServiceRequest serviceRequest) {
+		BookProxy book = serviceRequest.create(BookProxy.class);
+		book.setRating(Rating.NONE);
+		return book;
+	}
+	
 	private void onSaveSuccess(Long bookId) {
 		clientFactory.getPlaceController().goTo(new BookListPlace());
 	}
 	
 	private void startEditing(BookProxy book) {
 		BookServiceRequest serviceRequest = requestFactory.getBookServiceRequest();
-		BookProxy bookToEdit = book == null ? serviceRequest.create(BookProxy.class) : serviceRequest.edit(book);
+		BookProxy bookToEdit = book == null ? createNewBookProxy(serviceRequest) : serviceRequest.edit(book);
 		
 		editorDriver = view.getEditorDriver();
 		

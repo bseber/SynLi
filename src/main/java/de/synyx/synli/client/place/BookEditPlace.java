@@ -12,7 +12,7 @@ public class BookEditPlace extends Place {
 			Long id = null;
 			try {
 				id = Long.valueOf(token);
-			} catch(NumberFormatException e) {
+			} catch (NumberFormatException e) {
 			}
 			return new BookEditPlace(id);
 		}
@@ -24,15 +24,23 @@ public class BookEditPlace extends Place {
 			}
 			return String.valueOf(place.getBookId());
 		}
-		
+
 	}
 
 	private Long bookId;
-	
+
+	/**
+	 * This will create a new Book. To edit one call the constructor with a
+	 * given book id
+	 */
 	public BookEditPlace() {
 		this(null);
 	}
-	
+
+	/**
+	 * @param bookId
+	 *            the id of the book which will be edited
+	 */
 	public BookEditPlace(Long bookId) {
 		this.bookId = bookId;
 	}
@@ -40,5 +48,5 @@ public class BookEditPlace extends Place {
 	public Long getBookId() {
 		return bookId;
 	}
-	
+
 }

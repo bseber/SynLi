@@ -2,7 +2,13 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	
-	<ui:style>
+	<ui:style type="de.synyx.synli.client.ui.view.impl.MenuView.MenuViewStyle">
+	
+		.activeLink {
+			background-color: #9C9C9C;
+			border-radius: 0.3em;
+		}
+		
 	</ui:style>
 	
 	<g:HTMLPanel>

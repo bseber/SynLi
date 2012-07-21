@@ -10,9 +10,10 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 
-import de.synyx.synli.client.ioc.ClientFactory;
 import de.synyx.synli.client.presenter.IBookEditPresenter;
+import de.synyx.synli.client.ui.resources.AppResources;
 import de.synyx.synli.client.ui.view.IBookEditView;
+import de.synyx.synli.client.ui.widgets.RatingWidget;
 import de.synyx.synli.shared.domain.BookProxy;
 
 public class BookEditView extends Composite implements IBookEditView {
@@ -40,17 +41,15 @@ public class BookEditView extends Composite implements IBookEditView {
 	@UiField
 	TextBox amazonLink;
 	
+	@UiField(provided = true)
+	RatingWidget rating;
+	
 	private Driver editorDriver;
-	private ClientFactory clientFactory;
 	private IBookEditPresenter presenter;
 
-	public BookEditView() {
+	public BookEditView(AppResources resources) {
+		rating = new RatingWidget(resources.star(), resources.emptyStar());
 		initWidget(uiBinder.createAndBindUi(this));
-	}
-
-	@Override
-	public void setClientFactory(ClientFactory clientFactory) {
-		this.clientFactory = clientFactory;
 	}
 
 	@Override

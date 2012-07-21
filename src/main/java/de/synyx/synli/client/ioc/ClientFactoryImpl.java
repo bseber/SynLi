@@ -5,6 +5,7 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 
+import de.synyx.synli.client.ui.resources.AppResources;
 import de.synyx.synli.client.ui.view.IBookEditView;
 import de.synyx.synli.client.ui.view.IBookListView;
 import de.synyx.synli.client.ui.view.impl.BookEditView;
@@ -20,6 +21,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	
 	private AppRequestFactory requestFactory;
 
+	private AppResources appResources = GWT.create(AppResources.class);
+	
 	private PlaceController placeController;
 	
 	private MenuView menuView = new MenuView();
@@ -49,6 +52,10 @@ public class ClientFactoryImpl implements ClientFactory {
 		return requestFactory;
 	}
 
+	public AppResources getAppResources() {
+		return appResources;
+	}
+	
 	@Override
 	public PlaceController getPlaceController() {
 		return placeController;
@@ -57,8 +64,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public IBookEditView getBookEditView() {
 		if (bookView == null) {
-			bookView = new BookEditView();
-			bookView.setClientFactory(this);
+			bookView = new BookEditView(appResources);
 		}
 		return bookView;
 	}
@@ -66,8 +72,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public IBookListView getBookListView() {
 		if (bookListView == null) {
-			bookListView = new BookListView();
-			bookListView.setClientFactory(this);
+			bookListView = new BookListView(appResources);
 		}
 		return bookListView;
 	}
